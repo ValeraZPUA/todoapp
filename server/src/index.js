@@ -61,3 +61,33 @@ task.init({
 }, );
 */
 
+//var express = require('express');
+//var app = express();
+const router = require('./routes');
+require('dotenv/config');
+const express= require('express');
+//import { User } from './db/models';
+const app = express();
+//const port = process.env.PORT || 5000;
+const port = 5001;
+app.use(express.json());
+app.use(router);
+/*
+app.get('/', (req, res) => res.send('Hello World!'));
+app.post('/user', async (req, res, next) => {
+    try{
+        const createdUser = await User.create(req.body);
+        return res.send(createdUser);
+        //console.log(req.body) ;
+    }catch(e){
+        next(e);
+    }
+});
+app.use((err,req,res) => {
+    res.status(500).send('Smth broken ((((');
+});
+*/
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+
+
