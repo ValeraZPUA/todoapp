@@ -1,5 +1,8 @@
-const express = require('express');
-const createUser = require('../controllers/user.js');
+import express from 'express';
+import {createUser, updateUserByPk} from "../controllers/user";
+import {validateUserOnUpdate} from "../middlewares/user/validateUser";
 const userRouter = express.Router();
-userRouter.post('/', createUser);
-module.exports = userRouter;
+//userRouter.post('/', createUser);
+userRouter.patch('/',validateUserOnUpdate, updateUserByPk);
+export default userRouter;
+

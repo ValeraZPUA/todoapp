@@ -11,4 +11,10 @@ export async function createUser(req,res,next) {
     } catch (e) {
         next(e);
     }
-};
+}
+
+export async function updateUserByPk(req,res,next) {
+    try{
+
+    }catch(e){ next(e);}
+}
