@@ -1,6 +1,6 @@
 const {User} = require('./../db/models');
 
-var controllersUser =async function createUser(req,res,next) {
+const controllersUser =async function createUser(req,res,next) {
     try{
         const createdUser = await User.create(req.body);
         if (createdUser){
@@ -11,5 +11,5 @@ var controllersUser =async function createUser(req,res,next) {
     } catch (e) {
         next(e);
     }
-}
+};
 module.exports = controllersUser;
