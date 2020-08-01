@@ -1,8 +1,7 @@
 'use strict';
-//import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import {NAME_PATTERN, LOGIN_PATTERN} from "../../constrains";
 
-const bcrypt = require('bcrypt');
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     firstName: {

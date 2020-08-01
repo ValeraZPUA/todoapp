@@ -1,5 +1,5 @@
 
-const errorhandler = function (err,req,res,next) {
-    res.status(500).send('Internal Server Error!');
+export default function (err,req,res,next) {
+    return res.status(500).send('Internal Server Error!');
 };
-module.exports = errorhandler;
+

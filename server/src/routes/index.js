@@ -12,4 +12,4 @@ userRouter.post('/',
 //router.use('/user',userRouter);
 //router.use(errorHandler);
 //module.exports = router;
-export default userRouter;
+export default router;
