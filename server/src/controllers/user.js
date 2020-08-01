@@ -1,6 +1,6 @@
-const {User} = require('./../db/models');
+import {User} from './../db/models';
 
-const controllersUser =async function createUser(req,res,next) {
+export async function createUser(req,res,next) {
     try{
         const createdUser = await User.create(req.body);
         if (createdUser){
@@ -12,4 +12,3 @@ const controllersUser =async function createUser(req,res,next) {
         next(e);
     }
 };
-module.exports = controllersUser;

@@ -1,5 +1,6 @@
 import userSchema from '../../utils/validation/user';
-export default async function validateUser(req, res, next) {
+function createUserValidationMV(isCreateMode=true) {
+    return async(req,res,next) => {
     try {
         req.body = await userSchema.validateAsync(req.body, {
             context: {
@@ -7,4 +8,6 @@ export default async function validateUser(req, res, next) {
             }
         });
         next();
-    } catch(e){ next(e); }}
+    } catch(e){ next(e); }}}
+    export const validateUserOnCreate = createUserValidationMV();
+export const validateUserOnUpdate = createUserValidationMV(false);
