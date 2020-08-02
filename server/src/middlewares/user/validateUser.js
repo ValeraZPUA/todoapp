@@ -9,5 +9,6 @@ function createUserValidationMV(isCreateMode=true) {
         });
         next();
     } catch(e){ next(e); }}}
+
     export const validateUserOnCreate = createUserValidationMV();
 export const validateUserOnUpdate = createUserValidationMV(false);

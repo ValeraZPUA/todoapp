@@ -1,13 +1,16 @@
 import {User} from './../db/models';
+import AppErrors from '../utils/applicationErrors';
 
 export async function createUser(req,res,next) {
     try{
         const createdUser = await User.create(req.body);
         if (createdUser){
-            return res.status(201).send(createdUser);
+            const userData = createdUser.get();
+            delete userData.password;
+            return res.status(201).send(userData);
         }
        //res.status(400).send('Bad Request!');
-        return next(new Error());
+        next ( new AppErrors.BadRequestError() );
     } catch (e) {
         next(e);
     }
@@ -26,7 +29,7 @@ export async function updateUserByPk(req,res,next) {
             delete data.password;
             return res.send(data);
         }
-        next('User info not found!');
+        next(new AppErrors.NotFoundError('User'));
     }catch(e){ next(e);}
 }
 
@@ -38,7 +41,7 @@ export async function getUserByPk(req,res,next) {
             }
         });
         if(foundUser) { return res.send(foundUser);}
-        next('User not found!!!');
+        next(new AppErrors.NotFoundError('User'));
     }catch(e){ next(e);}
 }
 
@@ -48,6 +51,6 @@ export async function deleteUserByPk(req,res,next) {
                 where: { id: req.params.userId }
             } );
         if(deletedRowsCount) { res.send(`${deletedRowsCount}`)};
-        next('User not found!!!');
+        next(new AppErrors.NotFoundError('User'));
     }catch(e){ next(e);}
 }
