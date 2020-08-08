@@ -1,12 +1,14 @@
 import express from 'express';
 import {createUser, updateUserByPk, deleteUserByPk, getUserByPk} from "../controllers/user.js";
-//import {validateUserOnUpdate, validateUserOnCreate} from "../middlewares/user/validateUser.js";
 import createValidationMW from "../middlewares/validation/createValidationMW";
 import schemas from '../utils/validation';
+import checkPermission from "../middlewares/permission/checkPermission";
+import { ACTION, ENTITY } from "../constrains";
+const checkTask = checkPermission(ENTITY.USER)
 const userRouter = express.Router();
-userRouter.post('/', createValidationMW(schemas.userSchema)(), createUser);
-userRouter.patch('/:userId',createValidationMW(schemas.userSchema)(false), updateUserByPk);
-userRouter.get('/:userId',getUserByPk);
-userRouter.delete('/:userId',deleteUserByPk);
+userRouter.post('/', checkPermission(ACTION.CREATE), createValidationMW(schemas.userSchema)(ACTION.CREATE), createUser);
+userRouter.patch('/:userId', checkPermission(ACTION.UPDATE), createValidationMW(schemas.userSchema)(ACTION.UPDATE), updateUserByPk);
+userRouter.get('/:userId', checkPermission(ACTION.READ), getUserByPk);
+userRouter.delete('/:userId', checkPermission(ACTION.DELETE), deleteUserByPk);
 export default userRouter;
 
